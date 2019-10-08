@@ -1,0 +1,35 @@
+
+void removeConsecutiveDuplicates(char *arr) {
+	/* Don't write main().
+	* Don't read input, it is passed as function argument.    
+	* Change in the given string itself.
+	* No need to return or print anything
+	* Taking input and printing output is handled automatically.
+	*/
+    if(arr[0]=='\0')
+        return;
+   while(arr[0]==arr[1])
+    { int i=0;
+     
+     while(arr[i])
+     {   
+         arr[i]=arr[i+1];
+         i++;
+     }
+        
+    
+    }
+    removeConsecutiveDuplicates(arr+1);
+
+}
+
+#include <iostream>
+using namespace std;
+
+
+int main() {
+    char s[100000];
+    cin >> s;
+    removeConsecutiveDuplicates(s);
+    cout << s << endl;
+}
