@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+class positions
+{
+    public:
+    string name;
+    int total;
+    int rollno;
+};
+bool compare(positions p1 , positions p2)
+{
+    if(p1.total != p2.total)
+        return p1.total > p2.total;
+    else
+        return p1.rollno < p2.rollno;
+}
+int main()
+{
+   int n;
+    cin>>n;
+    positions* obj = new positions[n];
+    int m1,m2,m3;
+    for(int i=0;i<n;i++)
+    {
+        cin>>obj[i].name;
+        obj[i].rollno = i+1;
+        cin>>m1>>m2>>m3;
+        obj[i].total = m1+m2+m3;
+    }
+    sort(obj , obj+n , compare);
+    for(int i=0;i<n;i++)
+    {
+        cout<<i+1<<" "<<obj[i].name<<endl;
+    }
+	return 0;
+}
