@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{ vector<string> str;
+ set<string> str1;
+ 
+ string s;
+ while(cin>>s)
+ {
+     str.push_back(s);
+     str1.insert(s);
+     
+ }
+ map<string ,int> m;
+set<string>::iterator it;
+
+     
+    for(int i=0;i<str.size();i++)
+    {
+        m[str[i]]=m[str[i]]+1;
+    }
+ int f=0;
+ for(it=str1.begin();it!=str1.end();it++)
+ {    if(m[*it]>1)
+     {cout <<*it<<" "<<m[*it]<<endl;
+     f=1;}
+ }
+ if(f==0)
+     cout<<-1<<endl;
+        
+       
+	return 0;
+}
