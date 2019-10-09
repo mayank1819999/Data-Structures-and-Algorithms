@@ -1,0 +1,38 @@
+#include<iostream>
+using namespace std;
+
+char* uniqueChar(char *str){
+    // Write your code herei
+    int arr[26]={0};
+    int i=0;
+    while(str[i])
+    {
+        
+        arr[int(str[i])-97]=1;
+        i++;
+    }
+ static   char str1[50000];
+ i=0;
+    int l=0;
+    
+    while(str[i])
+    {    if(arr[int(str[i])-97]==1)
+    {
+        arr[int(str[i])-97]=0;
+        
+        str1[l++]=str[i];
+    }
+        
+      i++;
+
+    }
+    return str1;
+}
+
+
+int main() {
+
+	char input[1000000];
+	cin >> input;
+	cout << uniqueChar(input) << endl;
+}
