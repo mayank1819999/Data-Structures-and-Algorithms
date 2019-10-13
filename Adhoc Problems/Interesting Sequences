@@ -1,0 +1,45 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+    int n,k,l;
+    cin>>n>>k>>l;
+    int *arr=new int[n];
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+    sort(arr,arr+n);
+    int ans=INT_MAX;
+    for(int j=arr[0];j<=arr[n-1];j++)
+    {
+        int dec=0;
+     int inc=0;
+     for(int i=0;i<n;i++)
+     {
+         int m=j-arr[i];
+         if(m>0)
+             inc+=m;
+         else
+             dec+=abs(m);
+             
+      
+     }
+      //  cout<<dec<<" "<<inc<<endl;
+           if(dec>inc)
+             continue;
+     
+         else
+         {
+             
+             int z=0;
+             z+=(dec*k);
+             z+=((inc-dec)*l);
+             if(z<ans)
+                 ans=z;
+         }
+        
+        
+    }
+    cout<<ans<<endl;
+    
+
+	// Write your code here
+}
