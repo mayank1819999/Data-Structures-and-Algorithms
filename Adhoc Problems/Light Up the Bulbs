@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   int n,g;
+    long x,y,cost=0;
+    cin>>n>>x>>y;
+    string z;
+    cin>>z;
+    int count=0;
+     if(z[0]=='0'){
+           count++;
+        }
+    for(int i=1;i<n;i++){
+        if(z[i]=='1'&&z[i+1]=='0')
+            count++;
+            
+    }
+ if(count==0){
+     cout<<0;
+ }
+ else{
+     cout<<(count-1)*min(x,y)+y;
+ }
+ 
+   return 0;	
+}
