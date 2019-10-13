@@ -1,0 +1,18 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long t;
+    cin>>t;
+    while(t--)
+    {
+        int i,p;
+        cin>>i>>p;
+       
+        while(p--)
+            i=(i+1)%12;
+        cout<<i<<endl;
+        
+    }
+	return 0;
+}
