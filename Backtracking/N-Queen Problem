@@ -1,0 +1,67 @@
+
+
+bool place(int row,int col,int grid[][11],int n)
+{
+    
+    for(int i=0;i<n;i++)
+    {
+        if(grid[row][i]==1)
+            return false;
+    }
+      for(int i=0;i<n;i++)
+    {
+        if(grid[i][col]==1)
+            return false;
+    }
+      for(int i=row-1,j=col-1;i>=0 && j>=0 ; i--,j--){
+    if(grid[i][j] ==1){
+      return false;
+    }
+  }
+
+  // Upper Right Diagonal
+
+  for(int i=row-1,j=col+1;i>=0 && j<n ; i--,j++){
+    if(grid[i][j] == 1){
+      return false;
+    }
+  }
+
+  return true;
+}
+
+void placequeen(int grid[][11],int n,int row)
+{
+    if(row==n)
+    {
+        for(int i=0;i<n;i++)
+        {
+            for(int j=0;j<n;j++)
+                cout<<grid[i][j]<<" ";
+        }cout<<endl;
+        return;
+    }
+    else
+    {
+        for(int i=0;i<n;i++)
+        {
+            if(place(row,i,grid,n))
+              {  grid[row][i]=1;
+            placequeen(grid,n,row+1);
+            grid[row][i]=0;
+            }
+        }
+        return;
+    }
+}
+void placeNQueens(int n){
+
+  /* Don't write main().
+   *  Don't read input, it is passed as function argument.
+   *  Print output as specified in the question
+  */
+int grid[n][11]={0};
+    //memset(grid,0,n,n*n*sizeof(int));
+    placequeen(grid,n,0);
+
+}
