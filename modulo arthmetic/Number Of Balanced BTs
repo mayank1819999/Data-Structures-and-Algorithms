@@ -1,0 +1,14 @@
+#include<bits/stdc++.h>
+int balancedBTs(int h) {
+  /* Don't write main().
+     Don't read input, it is passed as function argument.
+     Return the output and don’t print it.
+  */
+    if(h==0 || h==1)
+        return 1;
+    int x=balancedBTs(h-1);
+    int y=balancedBTs(h-2);
+    x=x%int(pow(10,9)+7);
+    y=y% int(pow(10,9)+7);
+    return ((x*x )+(2*x*y))%int(pow(10,9)+7);
+}
