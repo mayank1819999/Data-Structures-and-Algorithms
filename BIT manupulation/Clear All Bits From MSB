@@ -1,0 +1,29 @@
+#include <iostream>
+using namespace std;
+int clearAllBits(int n, int i){
+   
+   // i++;
+    int m=1<<i;
+    while(i<64)
+    {
+        i=i+1;
+        m=m+(1<<i);
+        
+    }
+    m=~m;
+    n=n&m;
+    return n;
+}
+
+
+
+int main() {
+	int n, i;
+
+	cin >> n >> i;
+	
+	cout<< clearAllBits(n, i) <<endl;
+		
+	return 0;
+}
+
