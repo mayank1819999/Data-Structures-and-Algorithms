@@ -1,0 +1,82 @@
+ #include<bits/stdc++.h>
+using namespace std;
+
+void creatsegtree(long  * arr,long  *tree,long  s,long  end,long  treenode)
+{	
+
+if(s==end)
+{
+	tree[treenode]=arr[s];
+return;
+}
+	
+	long mid=s +(end-s )/2;
+	creatsegtree(arr,tree,s,mid,2*treenode);
+	creatsegtree(arr,tree,mid+1,end,(2*treenode)+1);
+	tree[treenode]=min(tree[treenode*2],tree[1+(treenode*2)]);
+	return;
+}
+void update(long  *arr,long  *tree,long  s,long end,long  indx,long  val,long  treenode)
+{
+	if(s==end)
+	{
+		arr[indx]=val;
+		tree[treenode]=val;
+		return;
+	}  
+	long mid=s +(end-s )/2;
+	if(indx>mid)
+
+		update(arr,tree,mid+1,end,indx,val,2*treenode+1);		
+	else
+	update(arr,tree,s,mid,indx,val,2*treenode);
+	
+	tree[treenode]=min(tree[treenode*2],tree[2*treenode+1]);
+	
+	
+}
+
+long findans(long left,long right,long *tree,long start,long end,long treenode)
+{
+	if(start>right || left >end)
+	return INT_MAX;
+	if(start>=left && end<=right)
+	return tree[treenode];
+    long mid=start +(end-start)/2;
+		return min(findans( left,right,tree,start,mid,2*treenode),findans( left,right,tree, mid+1, end,(2*treenode)+1));
+	}
+
+
+int main()
+{
+	long q,n;
+    cin>>n>>q;
+    long *arr =new long[n];
+    for(long i=0;i<n;i++)
+        cin>>arr[i];
+    
+	long *tree=new long [4*n]{INT_MAX};
+   
+   
+	creatsegtree(arr,tree,0,n-1,1);
+    
+	while(q--)
+    {
+        char a;
+        cin>>a;
+        if(a=='u')
+        {
+            long x,y;
+            cin>>x>>y;
+           update(arr,tree,0,n-1,x-1,y,1);
+                    }
+        else{
+            long l,r;
+            cin>>l>>r;
+           
+          cout<<findans(l-1,r-1,tree,0,n-1,1)<<endl;
+        }
+        
+    }
+	
+}
