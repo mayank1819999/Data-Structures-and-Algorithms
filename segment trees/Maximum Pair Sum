@@ -1,0 +1,90 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+    int first;
+    int second;
+};
+void buildTree(int* arr,node* tree,int start,int end,int treeNode){
+    if(start==end){
+        node p;
+        p.first=arr[start];
+        p.second=INT_MIN;
+        tree[treeNode]=p;
+        return;
+    }
+    int mid=(start+end)/2;
+    buildTree(arr,tree,start,mid,2*treeNode);
+    buildTree(arr,tree,mid+1,end,2*treeNode+1);
+    tree[treeNode].first=max(tree[2*treeNode].first,tree[2*treeNode+1].first);
+    tree[treeNode].second=min(max(tree[2*treeNode].second,tree[2*treeNode+1].first),max(tree[2*treeNode].first,tree[2*treeNode+1].second));
+    return;  
+}
+void updateTree(int* arr,node* tree,int start,int end,int treeNode,int idx,int val){
+    if(start==end){
+        arr[idx]=val;
+        tree[treeNode].first=val;
+        return;
+    }
+    int mid=(start+end)/2;
+    if(idx>mid){
+        updateTree(arr,tree,mid+1,end,2*treeNode+1,idx,val);
+    }
+    else
+        updateTree(arr,tree,start,mid,2*treeNode,idx,val);
+    tree[treeNode].first=max(tree[2*treeNode].first,tree[2*treeNode+1].first);
+    tree[treeNode].second=min(max(tree[2*treeNode].first,tree[2*treeNode+1].second),max(tree[2*treeNode].second,tree[2*treeNode+1].first));
+    return;
+}
+node query(node* tree,int start,int end,int treeNode,int left,int right){
+    //outside the given interval
+    if(start>right||end<left){
+     node p;
+        p.first=INT_MIN;
+        p.second=INT_MIN;
+        return p;
+    }
+    //inside given interval
+    if(start>=left&&end<=right){
+        return tree[treeNode];
+    }
+    //partially inside or outside the given interval
+    int mid=(start+end)/2;
+    node ans1=query(tree,start,mid,2*treeNode,left,right);
+    node ans2=query(tree,mid+1,end,2*treeNode+1,left,right);
+    node p;
+    p.first=max(ans1.first,ans2.first);
+    p.second=min(max(ans1.first,ans2.second),max(ans1.second,ans2.first));
+    return p;
+}
+int main() {
+ 
+    // Write your code here
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n;
+    cin>>n;
+    int arr[n];
+    for(int i=0;i<n;i++)
+        cin>>arr[i];
+    node* tree=new node[4*n];
+    buildTree(arr,tree,0,n-1,1);
+    int q;
+    cin>>q;
+    for(int i=0;i<q;i++){
+        char c;
+        cin>>c;
+        if(c=='U'){
+            int i,x;
+            cin>>i>>x;
+            updateTree(arr,tree,0,n-1,1,i-1,x);
+            //update operation
+        }
+        else{
+            int x,y;
+            cin>>x>>y;
+            node ans=query(tree,0,n-1,1,x-1,y-1);
+            cout<<ans.first+ans.second<<endl;
+            //query operation
+        }
+    }
+}
