@@ -1,0 +1,49 @@
+#include<iostream>
+#include<cstring>
+using namespace std;
+int lcshelp(string s1,string s2,int arr[][1000])
+{ 
+    int w;
+ if( arr[s1.length()][s2.length()]!=-1)
+     return  arr[s1.length()][s2.length()];
+ 
+ 
+    if(s1.length()==0||s2.length()==0)
+{    w=0;
+        arr[s1.length()][s2.length()]=w;
+  
+ return w;
+ }
+ 
+    if(s1[0]==s2[0])
+     w= 1+lcshelp(s1.substr(1),s2.substr(1),arr);
+      
+   else
+        w= max(lcshelp(s1.substr(1),s2,arr),lcshelp(s1,s2.substr(1),arr));
+ arr[s1.length()][s2.length()]=w;
+  
+ return w;
+}
+int lcs(string s1, string s2){
+
+ /
+int arr[1000][1000];
+    memset(arr,-1,1000*1000*sizeof(int));
+  
+  return  lcshelp(s1,s2,arr);
+
+    
+}
+int main(){
+
+  string s1;
+  string s2;
+
+  cin >> s1;
+  cin >> s2;
+
+  cout << lcs(s1,s2) << endl;
+
+}
+
+
