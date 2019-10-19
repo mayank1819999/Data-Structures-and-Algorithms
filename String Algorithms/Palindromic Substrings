@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int countPalindromeSubstrings(char s[]) {
+
+    int l=strlen(s);
+static	int count =l;
+    for(int i=1;i<l-1;i++)
+    {
+        if(s[i-1]==s[i+1])
+        {
+            int x=i-1;
+            int y=i+1;
+                while(s[x]==s[y]&&x>=0&&y<l)
+                {
+                    count ++;
+                    x--;
+                    y++;
+                }
+        }
+        if(s[i]==s[i+1])
+             {
+            count++;
+            int x=i-1;
+            int y=i+2;
+                while(s[x]==s[y]&&x>=0&&y<l)
+                {
+                    count ++;
+                    x--;
+                    y++;
+                }
+        }
+            
+    }
+    return count ;
+    
+}
+
+
+int main() {
+    char input[10000];
+    cin >> input;
+    cout << countPalindromeSubstrings(input) << endl;
+}
