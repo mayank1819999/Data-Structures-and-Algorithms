@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+int calculateMex(unordered_set<int> Set) 
+{ 
+    int Mex = 0; 
+  
+    while (Set.find(Mex) != Set.end()) 
+        Mex++; 
+  
+    return (Mex); 
+    
+} 
+  
+int grundy(int n)
+{
+    if(n==0)
+        return 0;
+  unordered_set<int> s;
+    
+   s.insert(grundy(n/2));
+     s.insert(grundy(n/3));
+     s.insert(grundy(n/6));
+    
+    return (calculateMex(s));
+}
+int main() {
+
+	int n;
+    cin>>n;
+    int t=grundy(n);
+    cout<<t;
+}
