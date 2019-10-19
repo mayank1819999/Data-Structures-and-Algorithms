@@ -1,0 +1,86 @@
+#include<bits/stdc++.h>
+using namespace std;
+class trienode
+{	public:
+    trienode *left;
+    trienode *right;
+};
+void insert( int n,trienode * start)
+{
+    
+    trienode * curr= start;
+    for(int i=31;i>=0;i--)
+    {
+        int b=(n>>i)&1;
+        if(b==0)
+        {
+            if(!curr->left)
+                curr->left=new trienode();
+            curr=curr->left;
+        }
+        else
+        {
+		if(!curr->right)
+            curr->right=new trienode();
+         curr=curr->right;
+            
+        }
+    }
+}
+
+int findmax(trienode * start,int t)
+{   
+ 	
+      int currmax=0;
+     
+      trienode* curr=start;
+     for(int j=31;j>=0;j--)
+     {
+         int b=(t>>j)&1;
+         if(b==0)
+         {
+          if(curr->right)
+             {
+              currmax+=pow(2,j);
+              curr=curr->right;
+          }
+             else
+                 curr=curr->left;
+         }
+         else
+         {    if(curr->left)
+             {
+			 currmax+=pow(2,j);
+          curr=curr->left;
+      }
+          else
+              curr=curr->right;
+         }
+         
+     }
+   return currmax;
+ 
+    
+}
+int main() {
+int n;
+cin>>n;
+int * arr=new int[n];
+for(int i=0;i<n;i++)
+cin>>arr[i];
+int q=0;
+trienode * start=new trienode();
+int max=0;
+for(int i=0;i<n;i++)
+{
+	q=q^arr[i];
+	insert(q,start);
+	int z=findmax(start,q);
+	if(z>max)
+	max=z;
+}
+
+
+cout<<max<<endl;
+
+}
