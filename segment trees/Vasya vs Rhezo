@@ -1,0 +1,112 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct node{
+    long a=0,b=0,in=0;
+};
+void buildtree(long * arr1,long *arr2,node *tree,long start,long  end,long treenode)
+{
+    if(start==end)
+    {
+        tree[treenode].a=arr1[start]; 
+        tree[treenode].b=arr2[start];
+        tree[treenode].in=start;
+        return;
+    }
+    long mid=(start+end)/2;
+    long left=2*treenode;
+    long right=2*treenode+1;
+    buildtree(arr1,arr2,tree,start,mid,left);
+    buildtree(arr1,arr2,tree,mid+1,end,right);
+    
+   if(tree[left].a>tree[right].a)
+     {  tree[treenode].a=tree[left].a;
+      tree[treenode].b=tree[left].b;
+      tree[treenode].in=tree[left].in;
+             }
+    else if(tree[left].a<tree[right].a)
+     {  tree[treenode].a=tree[right].a;
+      tree[treenode].b=tree[right].b;
+      tree[treenode].in=tree[right].in;
+             }
+    else
+    {
+        if(tree[left].b>tree[right].b)
+     {  tree[treenode].a=tree[right].a;
+      tree[treenode].b=tree[right].b;
+      tree[treenode].in=tree[right].in;
+             }
+    else if(tree[left].b<tree[right].b)
+     {  tree[treenode].a=tree[left].a;
+      tree[treenode].b=tree[left].b;
+      tree[treenode].in=tree[left].in;
+             }
+       
+        
+    }
+}
+node findans(node * tree,long start,long end,long left,long right,long treenode)
+{
+    if(start>right ||end<left)
+       {
+node temp;
+        temp.a =INT_MIN;
+        return temp;}
+    else if(start>=left && end<=right)
+        return tree[treenode];
+    
+      long mid=(start+end)/2;
+    long lef=2*treenode;
+    long righ=2*treenode+1;
+    node lans=findans(tree,start,mid,left,right,lef);
+    node rans=findans(tree,mid+1,end,left,right,righ);
+    
+    
+  if(lans.a>rans.a)
+      return lans;
+    else  if(lans.a<rans.a)
+      return rans;
+    else
+    {
+        if(lans.b<rans.b)
+            return lans;
+        else if(rans.b<lans.b)
+            return rans;
+        else
+        {
+            if(lans.in<rans.in)
+            return lans;
+        else if(rans.in<lans.in)
+            return rans;
+        }
+    }
+    
+    
+    
+}
+int main() {
+
+	long n;
+    cin>>n;
+    long * arr1=new long[n];
+    long *arr2=new long[n];
+    for(long i=0;i<n;i++)
+        cin>>arr1[i];
+    for(long i=0;i<n;i++)
+        cin>>arr2[i];
+
+            node *tree=new node[4*n];
+buildtree(arr1,arr2,tree,0,n-1,1);
+    
+  long q;
+    cin>>q;
+    while(q--)
+    {
+        long l,r;
+        cin>>l>>r;
+        node a=findans(tree,0,n-1,l-1,r-1,1);
+        cout<<a.in+1<<endl;
+    }
+    
+
+        
+}
