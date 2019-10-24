@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+int getMaxMoney(int arr[], int n){
+
+
+    int *ans =new int [n];
+    ans[0]=arr[0];
+    ans[1]=arr[1];
+    for(int i=2;i<n;i++)
+    {
+        
+        for(int j=i-2;j>=0;j--)
+        {
+            int s=arr[i]+ans[j];
+           if(s>ans[i])
+                ans[i]=s;
+            
+        }
+    }
+    int max=0;
+    for(int i=0;i<n;i++)
+      {if(max<ans[i])
+          max=ans[i];
+    }
+    return max;
+
+}
