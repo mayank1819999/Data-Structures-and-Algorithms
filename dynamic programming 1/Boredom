@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int solve(int n,vector<int>A){
+
+    vector<int>::iterator it;
+
+    //long long sum=0;
+   
+   int *arr=new int[1001]{0};
+    int *frequency=new int[1001]{0};
+     for(it =A.begin();it!=A.end();it++)
+     frequency[*it]=1+ frequency[*it];
+    
+     // for(int i=0;i<1002;i++)
+     //     cout<<frequency[i]<<" " ;
+    
+    arr[0]=0;
+    arr[1]=frequency[1];
+    for(int i=2;i<=1000;i++)
+    {
+        arr[i]=max(arr[i-1],arr[i-2]+(i*frequency[i]));
+        
+        
+    }
+    
+//     for(int i=0;i<1002;i++)
+//         cout<<arr[i]<<" " ;
+    return arr[1000];
+    
+
+}
