@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{    long n,m,l,r,q,x;
+ cin>>n>>m;
+    long*ks=new long[n+1]{0};
+  long*ke=new long[n+1]{0};
+  long*ans=new long[n+1]{0};
+ for(long i =0;i<m;i++)
+ {
+     cin>>l>>r;
+     ks[l]++;
+     ke[r]++;
+ }
+ ans[0]=0;
+ ans[1]=ks[1];
+ for(long i=2;i<=n;i++)
+ {
+     
+     ans[i]=ks[i]+ans[i-1]-ke[i-1];
+ }
+ long*arr=new long[n+1]{0};
+ for(long i=0;i<=n;i++)
+ {
+     arr[ans[i]]++;
+ }
+ //  for(long i=0;i<=n;i++)
+ // {
+ //   cout<<ans[i]<<" ";
+ // }
+ long long sum=0;
+ for(long i=n;i>=0;i--)
+ {
+     sum+=arr[i];
+     arr[i]=sum;
+     
+ }
+ // cout<<endl;
+ //   for(long i=0;i<=n;i++)
+ // {
+ //   cout<<arr[i]<<" ";
+ // }
+ cin>>q;
+ while(q--)
+ {
+     cin>>x;
+     cout<<arr[x]<<endl;
+ }
+    return 0;
+}
