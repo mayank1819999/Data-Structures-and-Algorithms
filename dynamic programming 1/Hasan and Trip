@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+    
+struct city
+{
+    long x,y,h;
+};
+long double distance(city a,city b)
+{
+    long m=pow(a.x-b.x,2);
+        long n=pow(a.y-b.y,2);
+    return sqrt(m+n);
+    
+}
+
+int main()
+{
+    int n;
+        cin>>n;
+    long double ans[n];
+    
+city arr[n];
+    for(int i=0;i<n;i++)
+    {
+        int x,y,h;
+        cin>>x>>y>>h;
+        arr[i].x=x;
+         arr[i].y=y;
+         arr[i].h=h;
+    }
+    ans[0]=arr[0].h;
+    for(int i=1;i<n;i++)
+    { long double dis=ans[i-1]-distance(arr[i],arr[i-1]);
+    
+        for(int j=i-2;j>=0;j--)
+        {
+            long double dist=ans[j]-distance(arr[i],arr[j]);
+                if(dist>dis)
+                {
+                    
+                    dis=dist;
+                }
+            
+        }
+     ans[i]=arr[i].h+dis;
+    }
+     std::cout << std::fixed;
+    std::cout << std::setprecision(6);
+    std::cout << ans[n-1];
+    return 0;
+}
