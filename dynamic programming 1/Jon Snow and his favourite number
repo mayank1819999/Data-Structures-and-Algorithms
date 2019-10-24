@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main()
+{
+    long n,k,x;
+    cin>>n>>k>>x;
+    int *arr=new int[1001]{0};
+    for(long i=0;i<n;i++)
+    {
+        long z;
+        cin>>z;
+        arr[z]++;
+    }
+    
+    // for(int i=0;i<=10;i++)
+    //         cout<<arr[i]<<" ";
+    // cout<<endl;
+    long tc=0;
+    
+    while(k--)
+    {
+        for(int i=0;i<=1000;i++)
+        {     long b=i^x;
+       
+                if(tc%2!=0)
+                {
+                    
+                    if(arr[i]==1)
+                   { arr[b]+=1;
+                 arr[i]--;
+                   }
+                      arr[b]+=(arr[i]/2);
+                    arr[b]++;
+                    tc+=arr[i];
+                    arr[i]=arr[i]/2;
+                }
+                else
+                {
+                     
+                       if(arr[i]==1)
+                   { arr[b]+=1;
+                   arr[i]--;}
+                      arr[b]+=(arr[i]/2);
+                    tc+=arr[i];
+                    arr[i]/=2;
+                 arr[i]++;
+                }
+            }
+        
+
+      
+       
+    }
+    long min=0,max=1000;
+      for(int i=0;i<=1000;i++)
+        {
+            if(arr[i]>0)
+            {
+                min=i;
+                break;
+            }
+        }
+         for(int i=1000;i>=0;i--)
+        {
+            if(arr[i]>0)
+            {
+                max=i;
+                break;
+            }
+        }
+     cout<<max<<" "<<min;
+    return 0;
+}
