@@ -1,0 +1,34 @@
+
+
+int countWaysMakeChange(int denominations[], int n, int value,int output[][5000]){
+
+
+if(n==0)
+    return 0;
+    if(value==0)
+        return 1;
+    if(value<0)
+        return 0;
+    if (output[value][n] != -1) {
+	return output[value][n];
+	}
+  int m= countWaysMakeChange(denominations, n,  value- denominations[0],output);
+    int k= countWaysMakeChange(denominations+1, n-1,  value,output);
+    output[value][n]=m+k;
+    return m+k;
+
+}
+
+int countWaysToMakeChange(int denominations[], int n, int value){
+
+  
+int output[5000][5000];
+    for(int i=0;i<5000;i++)
+    {for(int j=0;j<5000;j++)
+        output[i][j]=-1;
+        
+    }
+        
+    return countWaysMakeChange(denominations,n,value,output);
+
+}
